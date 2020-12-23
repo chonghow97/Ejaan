@@ -1,61 +1,22 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 
 import {
 	useDimensions,
 	useDeviceOrientation,
 } from '@react-native-community/hooks';
+import WelcomeScreen from './app/screens/WelcomeScreen';
+import ViewImageScreen from './app/screens/ViewImageScreen';
 
 export default function App() {
 	const { landscape } = useDeviceOrientation();
+	let state = {
+		Counter: 1,
+	};
 	return (
-		<View
-			style={{
-				backgroundColor: '#fff',
-				flex: 1,
-				flexDirection: 'row',
-				justifyContent: 'center',
-				alignItems: 'center',
-				alignContent: 'center',
-				flexWrap: 'wrap',
-			}}
-		>
-			<View
-				style={{
-					backgroundColor: 'dodgerblue',
-					flexBasis: 100, //width
-					// width: 100,
-					height: 100,
-				}}
-			></View>
-			<View
-				style={{
-					backgroundColor: 'gold',
-					width: 100,
-					height: 100,
-				}}
-			></View>
-			<View
-				style={{
-					backgroundColor: 'tomato',
-					width: 100,
-					height: 100,
-				}}
-			></View>
-			<View
-				style={{
-					backgroundColor: 'grey',
-					width: 100,
-					height: 100,
-				}}
-			></View>
-			<View
-				style={{
-					backgroundColor: 'greenyellow',
-					width: 100,
-					height: 100,
-				}}
-			></View>
+		<View style={styles.container}>
+			<Text>Hello World {state.Counter}</Text>
+			<Button title="Click me" onPress={() => state.Counter++}></Button>
 		</View>
 	);
 }
@@ -64,6 +25,7 @@ const containerStyle = { backgroundColor: 'orange' };
 
 const styles = StyleSheet.create({
 	container: {
+		padding: 20,
 		flex: 1,
 	},
 });
