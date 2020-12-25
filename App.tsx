@@ -5,25 +5,21 @@ import {
 	useDimensions,
 	useDeviceOrientation,
 } from '@react-native-community/hooks';
-import CounterScreen from './app/screens/CounterScreen';
+import VocabScreen from './app/screens/VocabScreen';
 
 const App: FC = () => {
-	//state
+	//declarations
 	const { landscape } = useDeviceOrientation();
-	const [Count, setCount] = useState<number>(1);
 
 	//function
-	function handlerCount() {
-		setCount((prev) => prev + 1);
-	}
+
+	//render
 	return (
 		<View style={styles.container}>
-			<CounterScreen count={Count} handler={handlerCount} />
+			<VocabScreen />
 		</View>
 	);
 };
-
-const containerStyle = { backgroundColor: 'orange' };
 
 const styles = StyleSheet.create({
 	container: {
