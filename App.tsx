@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { useState, FC } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
 
 import {
 	useDimensions,
 	useDeviceOrientation,
 } from '@react-native-community/hooks';
-import WelcomeScreen from './app/screens/WelcomeScreen';
-import ViewImageScreen from './app/screens/ViewImageScreen';
+import CounterScreen from './app/screens/CounterScreen';
 
-export default function App() {
+const App: FC = () => {
+	//state
 	const { landscape } = useDeviceOrientation();
-	let state = {
-		Counter: 1,
-	};
+	const [Count, setCount] = useState<number>(1);
+
+	//function
+	function handlerCount() {
+		setCount((prev) => prev + 1);
+	}
 	return (
 		<View style={styles.container}>
-			<Text>Hello World {state.Counter}</Text>
-			<Button title="Click me" onPress={() => state.Counter++}></Button>
+			<CounterScreen count={Count} handler={handlerCount} />
 		</View>
 	);
-}
+};
 
 const containerStyle = { backgroundColor: 'orange' };
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 20,
+		paddingTop: 20,
 		flex: 1,
 	},
 });
+
+export default App;
