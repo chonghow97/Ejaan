@@ -1,15 +1,10 @@
 import React, { useState, FC } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
 
-import {
-	useDimensions,
-	useDeviceOrientation,
-} from '@react-native-community/hooks';
 import VocabScreen from './app/screens/VocabScreen';
 
 const App: FC = () => {
 	//declarations
-	const { landscape } = useDeviceOrientation();
 
 	//function
 
