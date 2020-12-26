@@ -1,5 +1,6 @@
 import React, { useState, FC } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
+import Header from './app/components/Base/Header';
 
 import VocabScreen from './app/screens/VocabScreen';
 
@@ -11,6 +12,7 @@ const App: FC = () => {
 	//render
 	return (
 		<View style={styles.container}>
+			<Header title="Ejaan" />
 			<VocabScreen />
 		</View>
 	);

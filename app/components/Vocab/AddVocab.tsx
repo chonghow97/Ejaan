@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Term from '../../interface/Term';
+import Input from '../Base/Input';
 interface Props {
 	handleAddVocab: (Vocab: Term) => void;
 }
@@ -16,27 +17,16 @@ const AddVocab = ({ handleAddVocab }: Props): ReactElement => {
 	const [Term, setTerm] = useState<Term>({ a: '', b: '' });
 
 	const onChangeA = (text: string) =>
-		setTerm((prev) => {
-			return { a: text, b: prev.b };
-		});
+		setTerm((prev) => ({ ...prev, a: text }));
+
 	const onChangeB = (text: string) =>
-		setTerm((prev) => {
-			return { a: prev.a, b: text };
-		});
+		setTerm((prev) => ({ ...prev, b: text }));
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.InputContainer}>
-				<TextInput
-					placeholder="Term 1"
-					style={[styles.input]}
-					onChangeText={onChangeA}
-				/>
-				<TextInput
-					placeholder="Term 2"
-					style={[styles.input]}
-					onChangeText={onChangeB}
-				/>
+				<Input placeholder="Term 1" onChangeText={onChangeA} />
+				<Input placeholder="Term 2" onChangeText={onChangeB} />
 			</View>
 			<TouchableOpacity
 				style={styles.btn}
@@ -57,15 +47,6 @@ const styles = StyleSheet.create({
 	},
 	InputContainer: {
 		flexDirection: 'row',
-	},
-	input: {
-		backgroundColor: '#f8f8f8',
-		height: 50,
-		padding: 8,
-		fontSize: 16,
-		marginBottom: 5,
-		marginRight: 5,
-		flex: 1,
 	},
 	btn: {
 		backgroundColor: '#c2bad8',

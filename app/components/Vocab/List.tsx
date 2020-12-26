@@ -12,9 +12,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 interface Props {
 	vocab: Vocab;
 	deleteItem: (id: string) => void;
+	editItem: (id: string) => void;
 }
 
-function List({ vocab, deleteItem }: Props): ReactElement {
+function List({ vocab, deleteItem, editItem }: Props): ReactElement {
 	//declaration
 	const [ModalVisible, setModalVisible] = useState(false);
 	//destructors
@@ -26,18 +27,12 @@ function List({ vocab, deleteItem }: Props): ReactElement {
 
 	//render
 	return (
-		<TouchableOpacity>
+		<TouchableOpacity onLongPress={() => editItem(id)}>
 			<View style={styles.container}>
-				<Text style={[styles.text, styles.fontSize, { flex: 2 }]}>
+				<Text style={[styles.text, styles.fontSize, { flex: 3 }]}>
 					{vocabA}
 				</Text>
 				<Text style={[styles.text, styles.fontSize]}>{vocabB}</Text>
-				<Icon
-					name="pencil"
-					color="orange"
-					style={[styles.fontSize, styles.Icon]}
-					onPress={() => Alert.prompt('Test')}
-				/>
 				<Icon
 					name="remove"
 					color="firebrick"
@@ -66,12 +61,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	fontSize: {
-		fontSize: 20,
+		fontSize: 15,
 	},
 	text: {
 		flex: 1,
 		marginLeft: 30,
-		fontSize: 20,
 	},
 });
 export default List;
