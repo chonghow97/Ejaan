@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, FC } from 'react';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import vocab from '../../interface/vocab';
 import Input from '../Base/Input';
@@ -10,12 +10,12 @@ interface Props {
 	setTerm: any;
 }
 
-function EditVocab({
+const EditVocab: FC<Props> = ({
 	setTerm,
 	toggleEdit,
 	Vocab,
 	handlerUpdateVocab,
-}: Props): ReactElement {
+}: Props): ReactElement => {
 	return (
 		<View style={styles.container}>
 			<View
@@ -54,7 +54,7 @@ function EditVocab({
 			</View>
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

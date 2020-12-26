@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, FC } from 'react';
 import Vocab from '../../interface/vocab';
 import {
 	Text,
@@ -15,7 +15,11 @@ interface Props {
 	editItem: (id: string) => void;
 }
 
-function List({ vocab, deleteItem, editItem }: Props): ReactElement {
+const List: FC<Props> = ({
+	vocab,
+	deleteItem,
+	editItem,
+}: Props): ReactElement => {
 	//declaration
 	const [ModalVisible, setModalVisible] = useState(false);
 	//destructors
@@ -42,7 +46,7 @@ function List({ vocab, deleteItem, editItem }: Props): ReactElement {
 			</View>
 		</TouchableOpacity>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	Icon: {

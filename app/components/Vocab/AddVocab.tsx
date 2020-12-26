@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, FC } from 'react';
 import {
 	View,
 	StyleSheet,
@@ -13,7 +13,7 @@ interface Props {
 	handleAddVocab: (Vocab: Term) => void;
 }
 
-const AddVocab = ({ handleAddVocab }: Props): ReactElement => {
+const AddVocab: FC<Props> = ({ handleAddVocab }: Props): ReactElement => {
 	const [Term, setTerm] = useState<Term>({ a: '', b: '' });
 
 	const onChangeA = (text: string) =>

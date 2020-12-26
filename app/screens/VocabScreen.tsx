@@ -53,6 +53,7 @@ const VocabScreen: FC = (): ReactElement => {
 		if (validateEmpty(vocab.vocabA, 'Term 1 cannot be empty')) return;
 		handleDeleteVocab(vocab.id);
 		setVocab((prev) => [vocab, ...prev]);
+		setToggleEdit(false);
 	};
 
 	const handleDeleteVocab = (id: string): void =>
