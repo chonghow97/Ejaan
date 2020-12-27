@@ -11,9 +11,13 @@ import Term from '../../interface/Term';
 import Input from '../Base/Input';
 interface Props {
 	handleAddVocab: (Vocab: Term) => void;
+	toggleSearchVocab: () => void;
 }
 
-const AddVocab: FC<Props> = ({ handleAddVocab }: Props): ReactElement => {
+const AddVocab: FC<Props> = ({
+	handleAddVocab,
+	toggleSearchVocab,
+}: Props): ReactElement => {
 	const [Term, setTerm] = useState<Term>({ a: '', b: '' });
 
 	const onChangeA = (text: string) =>
@@ -28,13 +32,20 @@ const AddVocab: FC<Props> = ({ handleAddVocab }: Props): ReactElement => {
 				<Input placeholder="Term 1" onChangeText={onChangeA} />
 				<Input placeholder="Term 2" onChangeText={onChangeB} />
 			</View>
-			<TouchableOpacity
-				style={styles.btn}
-				onPress={() => handleAddVocab(Term)}
-			>
-				<Text style={[styles.buttonText]}>
+			<TouchableOpacity style={styles.btn}>
+				<Text
+					style={[styles.buttonText]}
+					onPress={() => toggleSearchVocab()}
+				>
 					<Icon name="plus" size={20} />
-					Add Vocab
+					Search Vocab
+				</Text>
+				<Text
+					style={[styles.buttonText]}
+					onPress={() => handleAddVocab(Term)}
+				>
+					<Icon name="plus" size={20} />
+					Vocab
 				</Text>
 			</TouchableOpacity>
 		</View>
@@ -49,14 +60,17 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	btn: {
-		backgroundColor: '#c2bad8',
-		padding: 9,
-		margin: 5,
+		flexDirection: 'row',
 	},
 	buttonText: {
+		backgroundColor: '#c2bad8',
+		paddingTop: 10,
+		paddingBottom: 10,
+		marginLeft: 10,
 		textAlign: 'center',
 		color: 'darkslateblue',
 		fontSize: 16,
+		flex: 1,
 	},
 });
 export default AddVocab;

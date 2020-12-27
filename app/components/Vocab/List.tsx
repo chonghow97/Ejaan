@@ -7,6 +7,7 @@ import {
 	TouchableOpacity,
 	Modal,
 	Alert,
+	Button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 interface Props {
