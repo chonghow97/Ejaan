@@ -1,22 +1,19 @@
 import React, { ReactElement, FC, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Alert, Button } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
+import List from '../components/Vocab/List';
+import { Term, vocab } from '../interface/interface';
+import { createVocabStore } from '../store/vocabStore';
+import SearchVocab from '../components/Vocab/SearchVocab';
 import AddVocab from '../components/Vocab/AddVocab';
 import EditVocab from '../components/Vocab/EditVocab';
-import List from '../components/Vocab/List';
-import vocab from '../interface/vocab';
-import Term from '../interface/Term';
-import SearchVocab from '../components/Vocab/SearchVocab';
+
+const dictionary = createVocabStore();
 
 const VocabScreen: FC = (): ReactElement => {
 	// declarations
 	const [ToggleEdit, setToggleEdit] = useState(false);
-	const [Vocab, setVocab] = useState<vocab[]>([
-		{ id: uuidv4(), vocabA: 'Meja', vocabB: '桌子', isFav: false },
-		{ id: uuidv4(), vocabA: 'Kerusi', vocabB: '椅子', isFav: true },
-		{ id: uuidv4(), vocabA: 'Tetamu', vocabB: '客人', isFav: false },
-		{ id: uuidv4(), vocabA: 'Sampah', vocabB: '垃圾', isFav: false },
-	]);
+	const [Vocab, setVocab] = useState<vocab[]>(dictionary.vocab(''));
 	const [ToggleFav, setToggleFav] = useState(false);
 
 	const [Term, setTerm] = useState<vocab>({

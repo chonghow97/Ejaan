@@ -1,15 +1,9 @@
-import React, { useState, FC } from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, { FC, createContext } from 'react';
+import { View, StyleSheet } from 'react-native';
 import Header from './app/components/Base/Header';
-
 import VocabScreen from './app/screens/VocabScreen';
 
 const App: FC = () => {
-	//declarations
-
-	//function
-
-	//render
 	return (
 		<View style={styles.container}>
 			<Header title="Ejaan" />
