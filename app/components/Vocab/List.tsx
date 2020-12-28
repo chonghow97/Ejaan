@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 interface Props {
 	vocab: Vocab;
+	handleToggleFav: (id: string) => void;
 	deleteItem: (id: string) => void;
 	editItem: (id: string) => void;
 }
@@ -20,11 +21,12 @@ const List: FC<Props> = ({
 	vocab,
 	deleteItem,
 	editItem,
+	handleToggleFav,
 }: Props): ReactElement => {
 	//declaration
 	const [ModalVisible, setModalVisible] = useState(false);
 	//destructors
-	const { vocabA, vocabB, id } = vocab;
+	const { vocabA, vocabB, id, isFav } = vocab;
 
 	//interface, enum
 
@@ -34,6 +36,12 @@ const List: FC<Props> = ({
 	return (
 		<TouchableOpacity onLongPress={() => editItem(id)}>
 			<View style={styles.container}>
+				<Icon
+					name="star"
+					color={isFav ? 'orange' : 'grey'}
+					style={[styles.fontSize, styles.Icon]}
+					onPress={() => handleToggleFav(id)}
+				/>
 				<Text style={[styles.text, styles.fontSize, { flex: 3 }]}>
 					{vocabA}
 				</Text>

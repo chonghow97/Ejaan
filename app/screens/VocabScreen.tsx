@@ -12,33 +12,45 @@ const VocabScreen: FC = (): ReactElement => {
 	// declarations
 	const [ToggleEdit, setToggleEdit] = useState(false);
 	const [Vocab, setVocab] = useState<vocab[]>([
-		{ id: uuidv4(), vocabA: 'Meja', vocabB: '桌子' },
-		{ id: uuidv4(), vocabA: 'Kerusi', vocabB: '椅子' },
-		{ id: uuidv4(), vocabA: 'Tetamu', vocabB: '客人' },
-		{ id: uuidv4(), vocabA: 'Sampah', vocabB: '垃圾' },
+		{ id: uuidv4(), vocabA: 'Meja', vocabB: '桌子', isFav: false },
+		{ id: uuidv4(), vocabA: 'Kerusi', vocabB: '椅子', isFav: true },
+		{ id: uuidv4(), vocabA: 'Tetamu', vocabB: '客人', isFav: false },
+		{ id: uuidv4(), vocabA: 'Sampah', vocabB: '垃圾', isFav: false },
 	]);
+	const [ToggleFav, setToggleFav] = useState(false);
 
 	const [Term, setTerm] = useState<vocab>({
 		id: '',
 		vocabA: '',
 		vocabB: '',
+		isFav: false,
 	});
 
 	const [Search, setSearch] = useState<string>('');
+	const [ToggleSearch, setToggleSearch] = useState(false);
 
 	//functions
-	const [ToggleSearch, setToggleSearch] = useState(false);
 	const handleToggleSearch = (): void => setToggleSearch(true);
+	const handleToggleFav = (id: string): void => {
+		const newVocab = [...Vocab];
+		const vocab = newVocab.find((vocab) => vocab.id === id);
+		if (vocab === undefined) throw new Error('');
+		vocab.isFav = !vocab.isFav;
+		setVocab(newVocab);
+	};
 
 	const handleSearchFilter = (): vocab[] => {
 		//idea by : https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
-		let vocab = [...Vocab].sort((a, b) => (a.id > b.id ? 1 : -1));
-		const filtered = vocab.filter((v) =>
+		//sort by timeline? in future
+		// let vocab = [...Vocab].sort((a, b) => (a.id > b.id ? 1 : -1));
+		let newVocab = [...Vocab];
+
+		if (ToggleFav) newVocab = newVocab.filter((v) => v.isFav);
+		const filteredVocab = newVocab.filter((v) =>
 			v.vocabA.toLowerCase().includes(Search.toLowerCase()),
 		);
-		return filtered;
+		return filteredVocab;
 	};
-	handleSearchFilter();
 	const validateEmpty = (text: string, message: string): boolean => {
 		if (text === '') {
 			Alert.alert('Error', message);
@@ -50,7 +62,7 @@ const VocabScreen: FC = (): ReactElement => {
 	const handleAddVocab = (Vocab: Term) => {
 		const { a, b } = Vocab;
 		if (validateEmpty(a, 'Term 1 cannot be empty')) return;
-		const newVocab = { id: uuidv4(), vocabA: a, vocabB: b };
+		const newVocab = { id: uuidv4(), vocabA: a, vocabB: b, isFav: false };
 		setVocab((prev) => [newVocab, ...prev]);
 	};
 
@@ -63,8 +75,12 @@ const VocabScreen: FC = (): ReactElement => {
 
 	const handlerUpdateVocab = (vocab: vocab): void => {
 		if (validateEmpty(vocab.vocabA, 'Term 1 cannot be empty')) return;
-		handleDeleteVocab(vocab.id);
-		setVocab((prev) => [vocab, ...prev]);
+		const newVocab = [...Vocab];
+		const TempVocab = newVocab.find((TempVocab) => vocab.id === vocab.id);
+		if (TempVocab === undefined) throw new Error('');
+		TempVocab.vocabA = vocab.vocabA;
+		TempVocab.vocabB = vocab.vocabB;
+		setVocab(newVocab);
 		setToggleEdit(false);
 	};
 
@@ -86,6 +102,8 @@ const VocabScreen: FC = (): ReactElement => {
 					setToggleSearch={setToggleSearch}
 					setSearch={setSearch}
 					search={Search}
+					ToggleFav={ToggleFav}
+					setToggleFav={setToggleFav}
 				/>
 			) : (
 				<AddVocab
@@ -101,6 +119,7 @@ const VocabScreen: FC = (): ReactElement => {
 						vocab={item}
 						deleteItem={handleDeleteVocab}
 						editItem={handleEditVocab}
+						handleToggleFav={handleToggleFav}
 					></List>
 				)}
 			/>
